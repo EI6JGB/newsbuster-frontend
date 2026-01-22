@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewsBuster Sitemap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neon-green: #00ff9d;
+      --neon-green-dim: #00ff9d40;
+      --neon-orange: #ff9500;
+      --neon-orange-dim: #ff950040;
+      --neon-blue: #00d4ff;
+      --neon-blue-dim: #00d4ff40;
+      --neon-purple: #bf5af2;
+      --neon-purple-dim: #bf5af240;
+      --bg-dark: #0a0a0f;
+      --bg-card: rgba(20, 20, 30, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.6);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 255, 157, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 157, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridPulse 8s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .bg-glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(150px);
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-glow--green {
+      background: var(--neon-green);
+      top: -200px;
+      left: -200px;
+      animation: floatGlow 20s ease-in-out infinite;
+    }
+
+    .bg-glow--orange {
+      background: var(--neon-orange);
+      bottom: -200px;
+      right: -200px;
+      animation: floatGlow 20s ease-in-out infinite reverse;
+    }
+
+    @keyframes floatGlow {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(100px, 50px); }
+      66% { transform: translate(-50px, 100px); }
+    }
+
+    /* Header */
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 60px 40px 40px;
+      text-align: center;
+    }
+
+    .logo {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 60px var(--neon-green-dim);
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    /* Main container */
+    main {
+      position: relative;
+      z-index: 10;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 40px 80px;
+    }
+
+    /* Section cards */
+    .section {
+      margin-bottom: 40px;
+      animation: fadeSlideUp 0.6s ease-out backwards;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.1s; }
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(3) { animation-delay: 0.3s; }
+    .section:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section__header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .section__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+    }
+
+    .section--public .section__icon {
+      background: var(--neon-green-dim);
+      box-shadow: 0 0 30px var(--neon-green-dim);
+    }
+
+    .section--auth .section__icon {
+      background: var(--neon-blue-dim);
+      box-shadow: 0 0 30px var(--neon-blue-dim);
+    }
+
+    .section--newsreader .section__icon {
+      background: var(--neon-orange-dim);
+      box-shadow: 0 0 30px var(--neon-orange-dim);
+    }
+
+    .section--admin .section__icon {
+      background: var(--neon-purple-dim);
+      box-shadow: 0 0 30px var(--neon-purple-dim);
+    }
+
+    .section__title {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .section--public .section__title { color: var(--neon-green); }
+    .section--auth .section__title { color: var(--neon-blue); }
+    .section--newsreader .section__title { color: var(--neon-orange); }
+    .section--admin .section__title { color: var(--neon-purple); }
+
+    .section__badge {
+      margin-left: auto;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+    }
+
+    .section--public .section__badge {
+      background: var(--neon-green-dim);
+      color: var(--neon-green);
+    }
+
+    .section--auth .section__badge {
+      background: var(--neon-blue-dim);
+      color: var(--neon-blue);
+    }
+
+    .section--newsreader .section__badge {
+      background: var(--neon-orange-dim);
+      color: var(--neon-orange);
+    }
+
+    .section--admin .section__badge {
+      background: var(--neon-purple-dim);
+      color: var(--neon-purple);
+    }
+
+    /* Tree structure */
+    .tree {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .tree__item {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .tree__item:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .section--public .tree__item:hover {
+      box-shadow: 0 20px 40px -20px var(--neon-green-dim),
+                  0 0 0 1px var(--neon-green-dim);
+    }
+
+    .section--auth .tree__item:hover {
+      box-shadow: 0 20px 40px -20px var(--neon-blue-dim),
+                  0 0 0 1px var(--neon-blue-dim);
+    }
+
+    .section--newsreader .tree__item:hover {
+      box-shadow: 0 20px 40px -20px var(--neon-orange-dim),
+                  0 0 0 1px var(--neon-orange-dim);
+    }
+
+    .section--admin .tree__item:hover {
+      box-shadow: 0 20px 40px -20px var(--neon-purple-dim),
+                  0 0 0 1px var(--neon-purple-dim);
+    }
+
+    .tree__indicator {
+      width: 4px;
+      flex-shrink: 0;
+    }
+
+    .section--public .tree__indicator { background: var(--neon-green); }
+    .section--auth .tree__indicator { background: var(--neon-blue); }
+    .section--newsreader .tree__indicator { background: var(--neon-orange); }
+    .section--admin .tree__indicator { background: var(--neon-purple); }
+
+    .tree__content {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tree__route {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tree__route-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      flex-shrink: 0;
+    }
+
+    .tree__name {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .tree__path {
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 12px;
+      border-radius: 6px;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .tree__path span {
+      opacity: 0.5;
+    }
+
+    .tree__desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .tree__arrow {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .tree__item:hover .tree__arrow {
+      opacity: 0.5;
+      transform: translateY(-50%) translateX(4px);
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 40px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--neon-green);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--neon-orange);
+    }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 30px 40px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat__value {
+      font-family: 'Orbitron', monospace;
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat__label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-top: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 40px 20px 30px;
+      }
+
+      main {
+        padding: 20px 20px 60px;
+      }
+
+      .stats {
+        gap: 24px;
+        padding: 20px;
+      }
+
+      .stat__value {
+        font-size: 1.8rem;
+      }
+
+      .section__header {
+        flex-wrap: wrap;
+      }
+
+      .section__badge {
+        margin-left: 0;
+        margin-top: 8px;
+      }
+
+      .tree {
+        grid-template-columns: 1fr;
+      }
+
+      .tree__content {
+        padding: 16px;
+      }
+    }
+
+    /* Scanline effect */
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.03) 2px,
+        rgba(0, 0, 0, 0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow--green"></div>
+  <div class="bg-glow bg-glow--orange"></div>
+  <div class="scanlines"></div>
+
+  <header>
+    <h1 class="logo">NewsBuster</h1>
+    <p class="tagline">Application Sitemap</p>
+  </header>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat__value">19</div>
+      <div class="stat__label">Total Pages</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value">4</div>
+      <div class="stat__label">Sections</div>
+    </div>
+    <div class="stat">
+      <div class="stat__value">2</div>
+      <div class="stat__label">Protected Roles</div>
+    </div>
+  </div>
+
+  <main>
+    <!-- PUBLIC PAGES -->
+    <section class="section section--public">
+      <div class="section__header">
+        <div class="section__icon">🌐</div>
+        <h2 class="section__title">Public Pages</h2>
+        <span class="section__badge">No Auth Required</span>
+      </div>
+      <div class="tree">
+        <a href="/" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">🏠</div>
+              <span class="tree__name">Home Page</span>
+            </div>
+            <code class="tree__path">/</code>
+            <p class="tree__desc">Main landing with live broadcast status, leaderboards, caller map, and queue</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/news" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">📰</div>
+              <span class="tree__name">News Archive</span>
+            </div>
+            <code class="tree__path">/news</code>
+            <p class="tree__desc">Browse past news bulletins with filtering by year, month, and broadcast</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/broadcast/:id" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">📡</div>
+              <span class="tree__name">Broadcast View</span>
+            </div>
+            <code class="tree__path">/broadcast/<span>:id</span></code>
+            <p class="tree__desc">Live or historical broadcast view with map, queue, and join forms</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/history/:sessionId" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">📜</div>
+              <span class="tree__name">Historical View</span>
+            </div>
+            <code class="tree__path">/history/<span>:sessionId</span></code>
+            <p class="tree__desc">Detailed historical session view with caller locations and worked stations</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- AUTHENTICATION PAGES -->
+    <section class="section section--auth">
+      <div class="section__header">
+        <div class="section__icon">🔐</div>
+        <h2 class="section__title">Authentication</h2>
+        <span class="section__badge">Login Flow</span>
+      </div>
+      <div class="tree">
+        <a href="/login" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">🔑</div>
+              <span class="tree__name">Login</span>
+            </div>
+            <code class="tree__path">/login</code>
+            <p class="tree__desc">Email/password login for newsreaders and admins</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/accept-invitation" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">✉️</div>
+              <span class="tree__name">Accept Invitation</span>
+            </div>
+            <code class="tree__path">/accept-invitation<span>?token=...</span></code>
+            <p class="tree__desc">Accept admin invitation and set initial password</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/verify-email" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">✅</div>
+              <span class="tree__name">Verify Email</span>
+            </div>
+            <code class="tree__path">/verify-email<span>?token=...</span></code>
+            <p class="tree__desc">Verify email address change confirmation</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/check-email" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">📧</div>
+              <span class="tree__name">Check Email</span>
+            </div>
+            <code class="tree__path">/check-email<span>?email=...</span></code>
+            <p class="tree__desc">Confirmation screen showing email verification sent</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- NEWSREADER PAGES -->
+    <section class="section section--newsreader">
+      <div class="section__header">
+        <div class="section__icon">🎙️</div>
+        <h2 class="section__title">Newsreader Portal</h2>
+        <span class="section__badge">Requires Newsreader Role</span>
+      </div>
+      <div class="tree">
+        <a href="/newsreader" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">📊</div>
+              <span class="tree__name">Dashboard</span>
+            </div>
+            <code class="tree__path">/newsreader</code>
+            <p class="tree__desc">Dashboard showing available broadcasts, schedules, and active sessions</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/newsreader/broadcast/:broadcastId" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">🎛️</div>
+              <span class="tree__name">Broadcast Control</span>
+            </div>
+            <code class="tree__path">/newsreader/broadcast/<span>:broadcastId</span></code>
+            <p class="tree__desc">Live broadcast control panel with queue management and state transitions</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/newsreader/profile" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">👤</div>
+              <span class="tree__name">Profile</span>
+            </div>
+            <code class="tree__path">/newsreader/profile</code>
+            <p class="tree__desc">User profile with email, password, and grid square management</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/newsreader/history" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">📚</div>
+              <span class="tree__name">Broadcast History</span>
+            </div>
+            <code class="tree__path">/newsreader/history</code>
+            <p class="tree__desc">View personal broadcast history and past sessions</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/newsreader/history/:sessionId" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">🔍</div>
+              <span class="tree__name">Session Details</span>
+            </div>
+            <code class="tree__path">/newsreader/history/<span>:sessionId</span></code>
+            <p class="tree__desc">Individual session details with caller statistics</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ADMIN PAGES -->
+    <section class="section section--admin">
+      <div class="section__header">
+        <div class="section__icon">⚡</div>
+        <h2 class="section__title">Admin Portal</h2>
+        <span class="section__badge">Requires Admin Role</span>
+      </div>
+      <div class="tree">
+        <a href="/admin" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">📊</div>
+              <span class="tree__name">Dashboard</span>
+            </div>
+            <code class="tree__path">/admin</code>
+            <p class="tree__desc">Admin dashboard with stats, active sessions, and session management</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/admin/newsreaders" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">👥</div>
+              <span class="tree__name">Manage Newsreaders</span>
+            </div>
+            <code class="tree__path">/admin/newsreaders</code>
+            <p class="tree__desc">Manage newsreaders (CRUD, invitations, broadcast assignments)</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/admin/broadcasts" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">📡</div>
+              <span class="tree__name">Manage Broadcasts</span>
+            </div>
+            <code class="tree__path">/admin/broadcasts</code>
+            <p class="tree__desc">Create and manage broadcast schedules</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/admin/scripts" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">📝</div>
+              <span class="tree__name">Manage Scripts</span>
+            </div>
+            <code class="tree__path">/admin/scripts</code>
+            <p class="tree__desc">Create and manage reusable script templates</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/admin/news" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">📰</div>
+              <span class="tree__name">Manage News</span>
+            </div>
+            <code class="tree__path">/admin/news</code>
+            <p class="tree__desc">Create and publish weekly news bulletins</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/admin/settings" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">⚙️</div>
+              <span class="tree__name">Settings</span>
+            </div>
+            <code class="tree__path">/admin/settings</code>
+            <p class="tree__desc">System configuration and admin settings</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+
+        <a href="/admin/statistics" class="tree__item">
+          <div class="tree__indicator"></div>
+          <div class="tree__content">
+            <div class="tree__route">
+              <div class="tree__route-icon">📈</div>
+              <span class="tree__name">Statistics</span>
+            </div>
+            <code class="tree__path">/admin/statistics</code>
+            <p class="tree__desc">View system statistics and analytics</p>
+          </div>
+          <span class="tree__arrow">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>NewsBuster Sitemap • <a href="/">Return to Home</a></p>
+  </footer>
+</body>
+</html>
